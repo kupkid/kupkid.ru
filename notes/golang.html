@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>golang thoughts - kupkid</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #ffffff;
+            --fg: #000000;
+            --muted: #666666;
+            --accent: #26ff64;
+            --border: #000000;
+        }
+
+        [data-theme="dark"] {
+            --bg: #0d1117;
+            --fg: #c9d1d9;
+            --muted: #8b949e;
+            --accent: #238636;
+            --border: #30363d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--bg);
+            color: var(--fg);
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .controls {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .theme-toggle, .lang-toggle {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--fg);
+            padding: 0.5rem 1rem;
+            font-family: inherit;
+            cursor: pointer;
+            font-size: 0.875rem;
+        }
+
+        .theme-toggle:hover, .lang-toggle:hover {
+            background: var(--accent);
+            color: var(--bg);
+        }
+
+        nav {
+            margin-bottom: 2rem;
+            font-size: 0.875rem;
+        }
+
+        nav a {
+            color: var(--muted);
+            text-decoration: none;
+            margin-right: 1rem;
+        }
+
+        nav a:hover {
+            color: var(--fg);
+            text-decoration: underline;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1rem;
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.875rem;
+        }
+
+        .back-link:hover {
+            color: var(--fg);
+            text-decoration: underline;
+        }
+
+        .meta {
+            color: var(--muted);
+            font-size: 0.875rem;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        h2 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        li::before {
+            content: "-";
+            position: absolute;
+            left: 0;
+            color: var(--muted);
+        }
+
+        .separator {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 2rem 0;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <button class="lang-toggle" onclick="toggleLang()" id="lang-btn">[ru]</button>
+        <button class="theme-toggle" onclick="toggleTheme()">[theme]</button>
+    </div>
+
+    <nav>
+        <a href="/">[home]</a>
+        <a href="/about.html">[about]</a>
+    </nav>
+
+    <a href="/" class="back-link" data-i18n="back">← back</a>
+    <a href="/" class="back-link" data-i18n="back" style="display: none;">← назад</a>
+
+    <h1 data-i18n="title">golang thoughts</h1>
+    <h1 data-i18n="title" style="display: none;">мысли о golang</h1>
+    
+    <div class="meta">2025-01-28</div>
+
+    <p data-i18n="p1">
+        two months writing go. mixed feelings, but leaning towards it being a good tool for specific tasks.
+    </p>
+    <p data-i18n="p1" style="display: none;">
+        два месяца пишу на go. впечатления смешанные, но склоняюсь к тому, что это хороший инструмент для определенных задач.
+    </p>
+
+    <h2 data-i18n="h1">pros</h2>
+    <h2 data-i18n="h1" style="display: none;">плюсы</h2>
+
+    <ul>
+        <li data-i18n="li1">single binary compilation — deploy is just scp</li>
+        <li data-i18n="li1" style="display: none;">компиляция в один бинарник — деплой это просто scp</li>
+        <li data-i18n="li2">goroutines — concurrency actually simple</li>
+        <li data-i18n="li2" style="display: none;">горутины — concurrency действительно простой</li>
+        <li data-i18n="li3">standard library — almost everything in the box</li>
+        <li data-i18n="li3" style="display: none;">стандартная библиотека — почти всё есть из коробки</li>
+        <li data-i18n="li4">go fmt — no holy wars about style</li>
+        <li data-i18n="li4" style="display: none;">go fmt — никаких holy wars про стиль</li>
+    </ul>
+
+    <h2 data-i18n="h2">cons</h2>
+    <h2 data-i18n="h2" style="display: none;">минусы</h2>
+
+    <ul>
+        <li data-i18n="li5">error handling — if err != nil everywhere</li>
+        <li data-i18n="li5" style="display: none;">обработка ошибок — if err != nil повсюду</li>
+        <li data-i18n="li6">no generics (though 1.18+ has them now)</li>
+        <li data-i18n="li6" style="display: none;">отсутствие generics (хотя уже есть в 1.18+)</li>
+        <li data-i18n="li7">gopath and modules — still confusing</li>
+        <li data-i18n="li7" style="display: none;">путь gopath и модули — до сих пор путаюсь</li>
+        <li data-i18n="li8">nil — million nil checks</li>
+        <li data-i18n="li8" style="display: none;">nil — миллион проверок на nil</li>
+    </ul>
+
+    <h2 data-i18n="h3">conclusion</h2>
+    <h2 data-i18n="h3" style="display: none;">вывод</h2>
+
+    <p data-i18n="p2">
+        go is c for the 21st century. not beautiful, not convenient, but damn efficient. for backends and microservices — perfect. for everything else — better pick something else.
+    </p>
+    <p data-i18n="p2" style="display: none;">
+        go — это c для 21 века. не красивый, не удобный, но чертовски эффективный. для бэкендов и микросервисов — идеален. для всего остального — лучше взять что-то другое.
+    </p>
+
+    <p data-i18n="p3">
+        staying on python for bots and scripts, but starting new projects in go. a compromise i can live with.
+    </p>
+    <p data-i18n="p3" style="display: none;">
+        пока остаюсь на python для ботов и скриптов, но новые проекты начинаю на go. компромисс, с которым можно жить.
+    </p>
+
+    <hr class="separator">
+
+    <script>
+        let currentLang = 'en';
+
+        const translations = {
+            en: {
+                'back': '← back',
+                'title': 'golang thoughts',
+                'h1': 'pros',
+                'h2': 'cons',
+                'h3': 'conclusion',
+                'p1': 'two months writing go. mixed feelings, but leaning towards it being a good tool for specific tasks.',
+                'li1': 'single binary compilation — deploy is just scp',
+                'li2': 'goroutines — concurrency actually simple',
+                'li3': 'standard library — almost everything in the box',
+                'li4': 'go fmt — no holy wars about style',
+                'li5': 'error handling — if err != nil everywhere',
+                'li6': 'no generics (though 1.18+ has them now)',
+                'li7': 'gopath and modules — still confusing',
+                'li8': 'nil — million nil checks',
+                'p2': 'go is c for the 21st century. not beautiful, not convenient, but damn efficient. for backends and microservices — perfect. for everything else — better pick something else.',
+                'p3': 'staying on python for bots and scripts, but starting new projects in go. a compromise i can live with.'
+            },
+            ru: {
+                'back': '← назад',
+                'title': 'мысли о golang',
+                'h1': 'плюсы',
+                'h2': 'минусы',
+                'h3': 'вывод',
+                'p1': 'два месяца пишу на go. впечатления смешанные, но склоняюсь к тому, что это хороший инструмент для определенных задач.',
+                'li1': 'компиляция в один бинарник — деплой это просто scp',
+                'li2': 'горутины — concurrency действительно простой',
+                'li3': 'стандартная библиотека — почти всё есть из коробки',
+                'li4': 'go fmt — никаких holy wars про стиль',
+                'li5': 'обработка ошибок — if err != nil повсюду',
+                'li6': 'отсутствие generics (хотя уже есть в 1.18+)',
+                'li7': 'путь gopath и модули — до сих пор путаюсь',
+                'li8': 'nil — миллион проверок на nil',
+                'p2': 'go — это c для 21 века. не красивый, не удобный, но чертовски эффективный. для бэкендов и микросервисов — идеален. для всего остального — лучше взять что-то другое.',
+                'p3': 'пока остаюсь на python для ботов и скриптов, но новые проекты начинаю на go. компромисс, с которым можно жить.'
+            }
+        };
+
+        function detectLanguage() {
+            const savedLang = localStorage.getItem('lang');
+            if (savedLang && translations[savedLang]) {
+                return savedLang;
+            }
+            
+            const browserLang = navigator.language || navigator.userLanguage;
+            const lang = browserLang.split('-')[0];
+            
+            if (translations[lang]) {
+                return lang;
+            }
+            return 'en';
+        }
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('lang', lang);
+            
+            document.documentElement.lang = lang;
+            document.getElementById('lang-btn').textContent = `[${lang === 'en' ? 'ru' : 'en'}]`;
+            
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+        }
+
+        function toggleLang() {
+            const newLang = currentLang === 'en' ? 'ru' : 'en';
+            setLanguage(newLang);
+        }
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+
+        // Initialize
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        }
+        
+        setLanguage(detectLanguage());
+    </script>
+</body>
+</html>

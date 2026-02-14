@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>winter and burnout - kupkid</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #ffffff;
+            --fg: #000000;
+            --muted: #666666;
+            --accent: #26ff64;
+            --border: #000000;
+        }
+
+        [data-theme="dark"] {
+            --bg: #0d1117;
+            --fg: #c9d1d9;
+            --muted: #8b949e;
+            --accent: #238636;
+            --border: #30363d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--bg);
+            color: var(--fg);
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .controls {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .theme-toggle, .lang-toggle {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--fg);
+            padding: 0.5rem 1rem;
+            font-family: inherit;
+            cursor: pointer;
+            font-size: 0.875rem;
+        }
+
+        .theme-toggle:hover, .lang-toggle:hover {
+            background: var(--accent);
+            color: var(--bg);
+        }
+
+        nav {
+            margin-bottom: 2rem;
+            font-size: 0.875rem;
+        }
+
+        nav a {
+            color: var(--muted);
+            text-decoration: none;
+            margin-right: 1rem;
+        }
+
+        nav a:hover {
+            color: var(--fg);
+            text-decoration: underline;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1rem;
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.875rem;
+        }
+
+        .back-link:hover {
+            color: var(--fg);
+            text-decoration: underline;
+        }
+
+        .meta {
+            color: var(--muted);
+            font-size: 0.875rem;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        h2 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        .separator {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 2rem 0;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <button class="lang-toggle" onclick="toggleLang()" id="lang-btn">[ru]</button>
+        <button class="theme-toggle" onclick="toggleTheme()">[theme]</button>
+    </div>
+
+    <nav>
+        <a href="/">[home]</a>
+        <a href="/about.html">[about]</a>
+    </nav>
+
+    <a href="/" class="back-link" data-i18n="back">← back</a>
+    <a href="/" class="back-link" data-i18n="back" style="display: none;">← назад</a>
+
+    <h1 data-i18n="title">winter and burnout</h1>
+    <h1 data-i18n="title" style="display: none;">про зиму и выгорание</h1>
+    
+    <div class="meta">2025-02-14</div>
+
+    <p data-i18n="p1">
+        living in the north for six months now. different rules apply here — polar nights, cold, constant struggle with yourself.
+    </p>
+    <p data-i18n="p1" style="display: none;">
+        живу на севере уже полгода. здесь свои правила — полярная ночь, холод, постоянная борьба с собой.
+    </p>
+
+    <p data-i18n="p2">
+        burnout came quietly. at first just didn't want to code. then became too lazy to even open the editor. familiar projects stopped bringing joy.
+    </p>
+    <p data-i18n="p2" style="display: none;">
+        выгорание пришло незаметно. сначала просто не хотелось кодить, потом стало лень даже открывать редактор. привычные проекты перестали радовать.
+    </p>
+
+    <h2 data-i18n="h1">what helps</h2>
+    <h2 data-i18n="h1" style="display: none;">что помогает</h2>
+
+    <p data-i18n="p3">
+        small steps. don't try to do everything at once. one commit per day is already a win. the key is to start, momentum will take over.
+    </p>
+    <p data-i18n="p3" style="display: none;">
+        маленькие шаги. не пытаться сделать всё сразу. один коммит в день — уже победа. главное — начать, а там инерция подхватит.
+    </p>
+
+    <p data-i18n="p4">
+        light therapy. sounds like nonsense but works. 30 minutes in the morning — head gets clearer.
+    </p>
+    <p data-i18n="p4" style="display: none;">
+        световая терапия лампой. звучит как бред, но работает. 30 минут утром — и голова clearer.
+    </p>
+
+    <p data-i18n="p5">
+        projects for self. no deadlines, no clients. just code for pleasure. this site is one of them.
+    </p>
+    <p data-i18n="p5" style="display: none;">
+        проекты для себя. без дедлайнов, без заказчиков. просто код ради удовольствия. этот сайт — один из них.
+    </p>
+
+    <h2 data-i18n="h2">conclusion</h2>
+    <h2 data-i18n="h2" style="display: none;">вывод</h2>
+
+    <p data-i18n="p6">
+        winter will pass. sun will return. until then — writing code i like and waiting for spring.
+    </p>
+    <p data-i18n="p6" style="display: none;">
+        зима пройдет. солнце вернется. а пока — пишу код, который нравится, и жду весну.
+    </p>
+
+    <hr class="separator">
+
+    <script>
+        let currentLang = 'en';
+
+        const translations = {
+            en: {
+                'back': '← back',
+                'title': 'winter and burnout',
+                'h1': 'what helps',
+                'h2': 'conclusion',
+                'p1': 'living in the north for six months now. different rules apply here — polar nights, cold, constant struggle with yourself.',
+                'p2': 'burnout came quietly. at first just didn\'t want to code. then became too lazy to even open the editor. familiar projects stopped bringing joy.',
+                'p3': 'small steps. don\'t try to do everything at once. one commit per day is already a win. the key is to start, momentum will take over.',
+                'p4': 'light therapy. sounds like nonsense but works. 30 minutes in the morning — head gets clearer.',
+                'p5': 'projects for self. no deadlines, no clients. just code for pleasure. this site is one of them.',
+                'p6': 'winter will pass. sun will return. until then — writing code i like and waiting for spring.'
+            },
+            ru: {
+                'back': '← назад',
+                'title': 'про зиму и выгорание',
+                'h1': 'что помогает',
+                'h2': 'вывод',
+                'p1': 'живу на севере уже полгода. здесь свои правила — полярная ночь, холод, постоянная борьба с собой.',
+                'p2': 'выгорание пришло незаметно. сначала просто не хотелось кодить, потом стало лень даже открывать редактор. привычные проекты перестали радовать.',
+                'p3': 'маленькие шаги. не пытаться сделать всё сразу. один коммит в день — уже победа. главное — начать, а там инерция подхватит.',
+                'p4': 'световая терапия лампой. звучит как бред, но работает. 30 минут утром — и голова clearer.',
+                'p5': 'проекты для себя. без дедлайнов, без заказчиков. просто код ради удовольствия. этот сайт — один из них.',
+                'p6': 'зима пройдет. солнце вернется. а пока — пишу код, который нравится, и жду весну.'
+            }
+        };
+
+        function detectLanguage() {
+            const savedLang = localStorage.getItem('lang');
+            if (savedLang && translations[savedLang]) {
+                return savedLang;
+            }
+            
+            const browserLang = navigator.language || navigator.userLanguage;
+            const lang = browserLang.split('-')[0];
+            
+            if (translations[lang]) {
+                return lang;
+            }
+            return 'en';
+        }
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('lang', lang);
+            
+            document.documentElement.lang = lang;
+            document.getElementById('lang-btn').textContent = `[${lang === 'en' ? 'ru' : 'en'}]`;
+            
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+        }
+
+        function toggleLang() {
+            const newLang = currentLang === 'en' ? 'ru' : 'en';
+            setLanguage(newLang);
+        }
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+
+        // Initialize
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        }
+        
+        setLanguage(detectLanguage());
+    </script>
+</body>
+</html>

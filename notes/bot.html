@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>download bot - kupkid</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #ffffff;
+            --fg: #000000;
+            --muted: #666666;
+            --accent: #26ff64;
+            --border: #000000;
+        }
+
+        [data-theme="dark"] {
+            --bg: #0d1117;
+            --fg: #c9d1d9;
+            --muted: #8b949e;
+            --accent: #238636;
+            --border: #30363d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--bg);
+            color: var(--fg);
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .controls {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .theme-toggle, .lang-toggle {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--fg);
+            padding: 0.5rem 1rem;
+            font-family: inherit;
+            cursor: pointer;
+            font-size: 0.875rem;
+        }
+
+        .theme-toggle:hover, .lang-toggle:hover {
+            background: var(--accent);
+            color: var(--bg);
+        }
+
+        nav {
+            margin-bottom: 2rem;
+            font-size: 0.875rem;
+        }
+
+        nav a {
+            color: var(--muted);
+            text-decoration: none;
+            margin-right: 1rem;
+        }
+
+        nav a:hover {
+            color: var(--fg);
+            text-decoration: underline;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1rem;
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.875rem;
+        }
+
+        .back-link:hover {
+            color: var(--fg);
+            text-decoration: underline;
+        }
+
+        .meta {
+            color: var(--muted);
+            font-size: 0.875rem;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        h2 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        pre {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            padding: 1rem;
+            overflow-x: auto;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        code {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .separator {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 2rem 0;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            pre {
+                padding: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <button class="lang-toggle" onclick="toggleLang()" id="lang-btn">[ru]</button>
+        <button class="theme-toggle" onclick="toggleTheme()">[theme]</button>
+    </div>
+
+    <nav>
+        <a href="/">[home]</a>
+        <a href="/about.html">[about]</a>
+    </nav>
+
+    <a href="/" class="back-link" data-i18n="back">← back</a>
+    <a href="/" class="back-link" data-i18n="back" style="display: none;">← назад</a>
+
+    <h1 data-i18n="title">download bot</h1>
+    <h1 data-i18n="title" style="display: none;">бот для скачивания</h1>
+    
+    <div class="meta">2025-02-10</div>
+
+    <p data-i18n="p1">
+        built a bot for downloading videos from social networks. simple, fast, no watermarks.
+    </p>
+    <p data-i18n="p1" style="display: none;">
+        написал бота для скачивания видео с соцсетей. простой, быстрый, без водяных знаков.
+    </p>
+
+    <h2 data-i18n="h1">features</h2>
+    <h2 data-i18n="h1" style="display: none;">фичи</h2>
+
+    <p data-i18n="p2">
+        - supports: tiktok, instagram, twitter/x, youtube<br>
+        - no registration required<br>
+        - instant file delivery<br>
+        - runs 24/7
+    </p>
+    <p data-i18n="p2" style="display: none;">
+        - поддержка: tiktok, instagram, twitter/x, youtube<br>
+        - без регистрации<br>
+        - мгновенная отправка файлов<br>
+        - работает 24/7
+    </p>
+
+    <h2 data-i18n="h2">stack</h2>
+    <h2 data-i18n="h2" style="display: none;">стек</h2>
+
+    <pre><code>python 3.11
+aiogram 3.x
+yt-dlp
+redis</code></pre>
+
+    <p data-i18n="p3">
+        main issue — ip blocking from platforms. solved via proxy rotation and graceful retry with exponential backoff.
+    </p>
+    <p data-i18n="p3" style="display: none;">
+        главная проблема — блокировка ip со стороны платформ. решил через ротацию прокси и graceful retry с экспоненциальной задержкой.
+    </p>
+
+    <h2 data-i18n="h3">result</h2>
+    <h2 data-i18n="h3" style="display: none;">результат</h2>
+
+    <p data-i18n="p4">
+        ~500 downloads per day. not open source yet — using myself and sharing with friends. might publish on github someday.
+    </p>
+    <p data-i18n="p4" style="display: none;">
+        ~500 загрузок в день. пока не открытый исходник — использую сам и даю друзьям. возможно, когда-нибудь выложу на github.
+    </p>
+
+    <hr class="separator">
+
+    <script>
+        let currentLang = 'en';
+
+        const translations = {
+            en: {
+                'back': '← back',
+                'title': 'download bot',
+                'h1': 'features',
+                'h2': 'stack',
+                'h3': 'result',
+                'p1': 'built a bot for downloading videos from social networks. simple, fast, no watermarks.',
+                'p2': '- supports: tiktok, instagram, twitter/x, youtube<br>\n        - no registration required<br>\n        - instant file delivery<br>\n        - runs 24/7',
+                'p3': 'main issue — ip blocking from platforms. solved via proxy rotation and graceful retry with exponential backoff.',
+                'p4': '~500 downloads per day. not open source yet — using myself and sharing with friends. might publish on github someday.'
+            },
+            ru: {
+                'back': '← назад',
+                'title': 'бот для скачивания',
+                'h1': 'фичи',
+                'h2': 'стек',
+                'h3': 'результат',
+                'p1': 'написал бота для скачивания видео с соцсетей. простой, быстрый, без водяных знаков.',
+                'p2': '- поддержка: tiktok, instagram, twitter/x, youtube<br>\n        - без регистрации<br>\n        - мгновенная отправка файлов<br>\n        - работает 24/7',
+                'p3': 'главная проблема — блокировка ip со стороны платформ. решил через ротацию прокси и graceful retry с экспоненциальной задержкой.',
+                'p4': '~500 загрузок в день. пока не открытый исходник — использую сам и даю друзьям. возможно, когда-нибудь выложу на github.'
+            }
+        };
+
+        function detectLanguage() {
+            const savedLang = localStorage.getItem('lang');
+            if (savedLang && translations[savedLang]) {
+                return savedLang;
+            }
+            
+            const browserLang = navigator.language || navigator.userLanguage;
+            const lang = browserLang.split('-')[0];
+            
+            if (translations[lang]) {
+                return lang;
+            }
+            return 'en';
+        }
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('lang', lang);
+            
+            document.documentElement.lang = lang;
+            document.getElementById('lang-btn').textContent = `[${lang === 'en' ? 'ru' : 'en'}]`;
+            
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+        }
+
+        function toggleLang() {
+            const newLang = currentLang === 'en' ? 'ru' : 'en';
+            setLanguage(newLang);
+        }
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+
+        // Initialize
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        }
+        
+        setLanguage(detectLanguage());
+    </script>
+</body>
+</html>

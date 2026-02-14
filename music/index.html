@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+body, html { margin: 0; padding: 0; height: 100vh; overflow: hidden; font-family: 'Segoe UI', sans-serif; }
+#nowwall { 
+  position: relative; width: 100vw; height: 100vh; 
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  text-align: center; color: white;
+}
+#bgimg { 
+  position: absolute; top:0; left:0; width:100%; height:100%; 
+  object-fit: cover; filter: blur(5px) brightness(0.4); z-index: 1;
+}
+#content { 
+  position: relative; z-index: 2; background: rgba(0,0,0,0.5); 
+  padding: 40px; border-radius: 20px; backdrop-filter: blur(10px);
+  max-width: 600px; box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+.track { font-size: 48px; font-weight: bold; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
+.artist { font-size: 28px; opacity: 0.9; margin-bottom: 30px; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); }
+.last-tracks { 
+  list-style: none; padding: 0; max-width: 500px; margin: 0 auto;
+  font-size: 18px; opacity: 0.9;
+}
+.last-tracks li { 
+  margin: 8px 0; padding: 10px; background: rgba(255,255,255,0.1); 
+  border-radius: 10px; backdrop-filter: blur(5px);
+}
+.loading { font-size: 24px; opacity: 0.7; }
+</style>
+</head>
+<body>
+<div id="nowwall">
+  <img id="bgimg" style="display:none">
+  <div id="content">
+    <div class="track" id="trackname" style="display:none">Загрузка...</div>
+    <div class="artist" id="artist" style="display:none"></div>
+    <ul class="last-tracks" id="recent"></ul>
+  </div>
+</div>
+
+<script>
+const API = atob('YTZjYzkwZDhhZjMyOTE0ZGY2ZTIzNThhYTVjZDc2ZWI='); 
+const USER = atob('YXhpYWxpeA=='); 
+
+// Убрал лишние реплейсы, JSON и так отдает UTF-8
+function cleanText(text) {
+  return text
+    .replace(/&/g, '&')
+    .replace(/</g, '<')
+    .replace(/>/g, '>');
+}
+
+async function loadTracks() {
+  try {
+    const res = await fetch(`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${USER}&api_key=${API}&limit=6&format=json`);
+    const data = await res.json();
+    const tracks = data.recenttracks.track;
+    
+    // Проверка, что tracks существует и это массив
+    if (!tracks || !Array.isArray(tracks)) return;
+
+    const now = tracks[0];
+    const trackEl = document.getElementById('trackname');
+    const artistEl = document.getElementById('artist');
+    const recentEl = document.getElementById('recent');
+    const bg = document.getElementById('bgimg');
+    
+    // Обработка текущего трека
+    if (now && now['@attr']?.nowplaying === 'true') {
+      trackEl.textContent = cleanText(now.name);
+      artistEl.textContent = cleanText(now.artist['#text']);
+      trackEl.style.display = 'block';
+      artistEl.style.display = 'block';
+      
+      const img = now.image[3]['#text'];
+      if (img) {
+        bg.src = img;
+        bg.style.display = 'block';
+      }
+    } else {
+      // Если ничего не играет, можно скрыть или показать последний
+      trackEl.style.display = 'none';
+      artistEl.style.display = 'none';
+      bg.style.display = 'none';
+    }
+    
+    // Список последних. Использую обычный дефис " - "
+    recentEl.innerHTML = tracks.slice(0,5).map(t => 
+      `<li>${cleanText(t.artist['#text'])} - ${cleanText(t.name)}</li>`
+    ).join('');
+    
+  } catch(e) { 
+    console.error(e);
+    document.getElementById('recent').innerHTML = '<li class="loading">Last.fm недоступен</li>';
+  }
+}
+
+setInterval(loadTracks, 20000);
+loadTracks();
+</script>
+</body>
+</html>

@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kupkid</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #ffffff;
+            --fg: #000000;
+            --muted: #666666;
+            --accent: #26ff64;
+            --border: #000000;
+        }
+
+        [data-theme="dark"] {
+            --bg: #0d1117;
+            --fg: #c9d1d9;
+            --muted: #8b949e;
+            --accent: #238636;
+            --border: #30363d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--bg);
+            color: var(--fg);
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .controls {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .theme-toggle, .lang-toggle {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--fg);
+            padding: 0.5rem 1rem;
+            font-family: inherit;
+            cursor: pointer;
+            font-size: 0.875rem;
+        }
+
+        .theme-toggle:hover, .lang-toggle:hover {
+            background: var(--accent);
+            color: var(--bg);
+        }
+
+        nav {
+            margin-bottom: 2rem;
+            font-size: 0.875rem;
+        }
+
+        nav a {
+            color: var(--muted);
+            text-decoration: none;
+            margin-right: 1rem;
+        }
+
+        nav a:hover {
+            color: var(--fg);
+            text-decoration: underline;
+        }
+
+        nav a.active {
+            color: var(--fg);
+            font-weight: 700;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        h2 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+
+        .tagline {
+            color: var(--muted);
+            margin-bottom: 2rem;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        li::before {
+            content: "-";
+            position: absolute;
+            left: 0;
+            color: var(--muted);
+        }
+
+        .note {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .note::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--muted);
+        }
+
+        .note-date {
+            color: var(--muted);
+            font-size: 0.875rem;
+        }
+
+        .note-title {
+            color: var(--fg);
+            text-decoration: none;
+        }
+
+        .note-title:hover {
+            text-decoration: underline;
+            color: var(--accent);
+        }
+
+        .git-tree {
+            font-size: 0.875rem;
+            line-height: 1.8;
+            white-space: pre;
+            overflow-x: auto;
+        }
+
+        .git-commit {
+            color: var(--fg);
+        }
+
+        .git-hash {
+            color: var(--muted);
+        }
+
+        .git-msg {
+            color: var(--fg);
+        }
+
+        .separator {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 2rem 0;
+        }
+
+        .links {
+            margin-top: 2rem;
+            font-size: 0.875rem;
+        }
+
+        .links a {
+            color: var(--fg);
+            text-decoration: none;
+            margin-right: 1rem;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+            color: var(--accent);
+        }
+
+        [data-i18n] {
+            display: none;
+        }
+
+        [data-i18n].active {
+            display: block;
+        }
+
+        p[data-i18n].active {
+            display: block;
+        }
+
+        li[data-i18n].active {
+            display: list-item;
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .loading {
+            color: var(--muted);
+            font-style: italic;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <button class="lang-toggle" onclick="toggleLang()" id="lang-btn">[ru]</button>
+        <button class="theme-toggle" onclick="toggleTheme()">[theme]</button>
+    </div>
+
+    <nav>
+        <a href="/" class="active">[home]</a>
+        <a href="/about.html">[about]</a>
+    </nav>
+
+    <h1>kupkid</h1>
+    <p class="tagline" data-i18n="tagline">full stack engineer / north</p>
+    <p class="tagline" data-i18n="tagline" style="display: none;">full stack engineer / north</p>
+
+    <h2 data-i18n="now-title">now</h2>
+    <h2 data-i18n="now-title" style="display: none;">сейчас</h2>
+    <ul>
+        <li data-i18n="now-1">building telegram bots</li>
+        <li data-i18n="now-1" style="display: none;">пишу telegram ботов</li>
+        <li data-i18n="now-2">learning rust</li>
+        <li data-i18n="now-2" style="display: none;">учу rust</li>
+        <li data-i18n="now-3">surviving winter</li>
+        <li data-i18n="now-3" style="display: none;">переживаю зиму</li>
+    </ul>
+
+    <h2 data-i18n="notes-title">notes</h2>
+    <h2 data-i18n="notes-title" style="display: none;">заметки</h2>
+    <div class="note">
+        <span class="note-date">2025-02-14</span>
+        <a href="/notes/winter.html" class="note-title" data-i18n="note-1">winter and burnout</a>
+        <a href="/notes/winter.html" class="note-title" data-i18n="note-1" style="display: none;">про зиму и выгорание</a>
+    </div>
+    <div class="note">
+        <span class="note-date">2025-02-10</span>
+        <a href="/notes/bot.html" class="note-title" data-i18n="note-2">download bot</a>
+        <a href="/notes/bot.html" class="note-title" data-i18n="note-2" style="display: none;">бот для скачивания</a>
+    </div>
+    <div class="note">
+        <span class="note-date">2025-01-28</span>
+        <a href="/notes/golang.html" class="note-title" data-i18n="note-3">golang thoughts</a>
+        <a href="/notes/golang.html" class="note-title" data-i18n="note-3" style="display: none;">мысли о golang</a>
+    </div>
+    <div class="note">
+        <span class="note-date">2025-01-15</span>
+        <a href="/notes/move.html" class="note-title" data-i18n="note-4">moving north</a>
+        <a href="/notes/move.html" class="note-title" data-i18n="note-4" style="display: none;">переезд на север</a>
+    </div>
+
+    <h2 data-i18n="changelog-title">changelog</h2>
+    <h2 data-i18n="changelog-title" style="display: none;">изменения</h2>
+    <div class="git-tree" id="changelog-content">
+        <span class="loading" data-i18n="loading">loading...</span>
+        <span class="loading" data-i18n="loading" style="display: none;">загрузка...</span>
+    </div>
+
+    <hr class="separator">
+
+    <div class="links">
+        <a href="https://github.com/kupkid" target="_blank" rel="noopener">[github]</a>
+        <a href="https://t.me/kupkid" target="_blank" rel="noopener">[telegram]</a>
+        <a href="mailto:contact@kupkid.ru">[email]</a>
+    </div>
+
+    <script>
+        let currentLang = 'en';
+
+        const translations = {
+            en: {
+                'tagline': 'full stack engineer / north',
+                'now-title': 'now',
+                'now-1': 'building telegram bots',
+                'now-2': 'learning rust',
+                'now-3': 'surviving winter',
+                'notes-title': 'notes',
+                'note-1': 'winter and burnout',
+                'note-2': 'download bot',
+                'note-3': 'golang thoughts',
+                'note-4': 'moving north',
+                'changelog-title': 'changelog',
+                'loading': 'loading...'
+            },
+            ru: {
+                'tagline': 'full stack engineer / север',
+                'now-title': 'сейчас',
+                'now-1': 'пишу telegram ботов',
+                'now-2': 'учу rust',
+                'now-3': 'переживаю зиму',
+                'notes-title': 'заметки',
+                'note-1': 'про зиму и выгорание',
+                'note-2': 'бот для скачивания',
+                'note-3': 'мысли о golang',
+                'note-4': 'переезд на север',
+                'changelog-title': 'изменения',
+                'loading': 'загрузка...'
+            }
+        };
+
+        function detectLanguage() {
+            const savedLang = localStorage.getItem('lang');
+            if (savedLang && translations[savedLang]) {
+                return savedLang;
+            }
+            
+            const browserLang = navigator.language || navigator.userLanguage;
+            const lang = browserLang.split('-')[0];
+            
+            if (translations[lang]) {
+                return lang;
+            }
+            return 'en';
+        }
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('lang', lang);
+            
+            document.documentElement.lang = lang;
+            document.getElementById('lang-btn').textContent = `[${lang === 'en' ? 'ru' : 'en'}]`;
+            
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    if (el.tagName === 'A') {
+                        // For links, keep the href but update text
+                        const textNode = el.childNodes[0];
+                        if (textNode && textNode.nodeType === 3) {
+                            textNode.textContent = translations[lang][key];
+                        } else {
+                            el.textContent = translations[lang][key];
+                        }
+                    } else {
+                        el.textContent = translations[lang][key];
+                    }
+                }
+            });
+            
+            fetchChangelog();
+        }
+
+        function toggleLang() {
+            const newLang = currentLang === 'en' ? 'ru' : 'en';
+            setLanguage(newLang);
+        }
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+
+        async function fetchChangelog() {
+            const container = document.getElementById('changelog-content');
+            const loadingText = currentLang === 'en' ? 'loading...' : 'загрузка...';
+            
+            try {
+                const response = await fetch('https://api.github.com/repos/kupkid/kupkid.ru/commits?per_page=5');
+                if (!response.ok) throw new Error('API error');
+                
+                const commits = await response.json();
+                
+                let html = '';
+                commits.forEach((commit, index) => {
+                    const date = new Date(commit.commit.committer.date).toISOString().split('T')[0];
+                    const hash = commit.sha.substring(0, 7);
+                    const message = commit.commit.message.split('\n')[0];
+                    const isLast = index === commits.length - 1;
+                    
+                    if (isLast) {
+                        html += `* ${date}  <span class="git-hash">${hash}</span>  <span class="git-msg">${message}</span>\n    init`;
+                    } else {
+                        html += `* ${date}  <span class="git-hash">${hash}</span>  <span class="git-msg">${message}</span>\n│\n`;
+                    }
+                });
+                
+                container.innerHTML = html;
+            } catch (error) {
+                container.innerHTML = `<span class="loading">${loadingText}</span>`;
+            }
+        }
+
+        // Initialize
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        }
+        
+        setLanguage(detectLanguage());
+    </script>
+</body>
+</html>

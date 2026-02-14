@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>about - kupkid</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #ffffff;
+            --fg: #000000;
+            --muted: #666666;
+            --accent: #26ff64;
+            --border: #000000;
+        }
+
+        [data-theme="dark"] {
+            --bg: #0d1117;
+            --fg: #c9d1d9;
+            --muted: #8b949e;
+            --accent: #238636;
+            --border: #30363d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--bg);
+            color: var(--fg);
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .controls {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .theme-toggle, .lang-toggle {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--fg);
+            padding: 0.5rem 1rem;
+            font-family: inherit;
+            cursor: pointer;
+            font-size: 0.875rem;
+        }
+
+        .theme-toggle:hover, .lang-toggle:hover {
+            background: var(--accent);
+            color: var(--bg);
+        }
+
+        nav {
+            margin-bottom: 2rem;
+            font-size: 0.875rem;
+        }
+
+        nav a {
+            color: var(--muted);
+            text-decoration: none;
+            margin-right: 1rem;
+        }
+
+        nav a:hover {
+            color: var(--fg);
+            text-decoration: underline;
+        }
+
+        nav a.active {
+            color: var(--fg);
+            font-weight: 700;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        .separator {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 2rem 0;
+        }
+
+        .links {
+            margin-top: 2rem;
+            font-size: 0.875rem;
+        }
+
+        .links a {
+            color: var(--fg);
+            text-decoration: none;
+            margin-right: 1rem;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+            color: var(--accent);
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        li::before {
+            content: "-";
+            position: absolute;
+            left: 0;
+            color: var(--muted);
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <button class="lang-toggle" onclick="toggleLang()" id="lang-btn">[ru]</button>
+        <button class="theme-toggle" onclick="toggleTheme()">[theme]</button>
+    </div>
+
+    <nav>
+        <a href="/">[home]</a>
+        <a href="/about.html" class="active">[about]</a>
+    </nav>
+
+    <h1 data-i18n="title">about</h1>
+    <h1 data-i18n="title" style="display: none;">обо мне</h1>
+
+    <p data-i18n="p1">
+        software engineer.
+    </p>
+    <p data-i18n="p1" style="display: none;">
+        software engineer.
+    </p>
+
+    <p data-i18n="p2">
+        currently studying: rust, systems programming, low-level optimization.
+    </p>
+    <p data-i18n="p2" style="display: none;">
+        сейчас изучаю: rust, системное программирование, низкоуровневую оптимизацию.
+    </p>
+
+    <p data-i18n="p3">
+        interests: automation, reverse engineering, minimal systems.
+    </p>
+    <p data-i18n="p3" style="display: none;">
+        интересы: автоматизация, реверс-инжиниринг, минималистичные системы.
+    </p>
+
+    <p data-i18n="p4">
+        location: northern region, utc+5.
+    </p>
+    <p data-i18n="p4" style="display: none;">
+        локация: северный регион, utc+5.
+    </p>
+
+    <p data-i18n="p5">
+        available for: backend development, devops, technical consulting.
+    </p>
+    <p data-i18n="p5" style="display: none;">
+        доступен для: backend разработки, devops, технического консалтинга.
+    </p>
+
+    <hr class="separator">
+
+    <div class="links">
+        <a href="https://github.com/kupkid" target="_blank" rel="noopener">[github]</a>
+        <a href="https://t.me/kupkid" target="_blank" rel="noopener">[telegram]</a>
+        <a href="mailto:contact@kupkid.ru">[email]</a>
+    </div>
+
+    <script>
+        let currentLang = 'en';
+
+        const translations = {
+            en: {
+                'title': 'about',
+                'p1': 'software engineer.',
+                'p2': 'currently studying: rust, systems programming, low-level optimization.',
+                'p3': 'interests: automation, reverse engineering, minimal systems.',
+                'p4': 'location: northern region, utc+5.',
+                'p5': 'available for: backend development, devops, technical consulting.'
+            },
+            ru: {
+                'title': 'обо мне',
+                'p1': 'software engineer.',
+                'p2': 'сейчас изучаю: rust, системное программирование, низкоуровневую оптимизацию.',
+                'p3': 'интересы: автоматизация, реверс-инжиниринг, минималистичные системы.',
+                'p4': 'локация: северный регион, utc+5.',
+                'p5': 'доступен для: backend разработки, devops, технического консалтинга.'
+            }
+        };
+
+        function detectLanguage() {
+            const savedLang = localStorage.getItem('lang');
+            if (savedLang && translations[savedLang]) {
+                return savedLang;
+            }
+            
+            const browserLang = navigator.language || navigator.userLanguage;
+            const lang = browserLang.split('-')[0];
+            
+            if (translations[lang]) {
+                return lang;
+            }
+            return 'en';
+        }
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('lang', lang);
+            
+            document.documentElement.lang = lang;
+            document.getElementById('lang-btn').textContent = `[${lang === 'en' ? 'ru' : 'en'}]`;
+            
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+        }
+
+        function toggleLang() {
+            const newLang = currentLang === 'en' ? 'ru' : 'en';
+            setLanguage(newLang);
+        }
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+
+        // Initialize
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        }
+        
+        setLanguage(detectLanguage());
+    </script>
+</body>
+</html>
