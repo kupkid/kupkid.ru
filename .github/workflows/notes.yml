@@ -1,0 +1,116 @@
+name: Generate Notes Index
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'notes/**'
+      - '.github/workflows/notes.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0  # Full git history for dates
+        
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        
+    - name: Generate notes.json
+      run: |
+        node << 'EOF'
+        const fs = require('fs');
+        const path = require('path');
+        const { execSync } = require('child_process');
+        
+        const notesDir = './notes';
+        const outputFile = './notes.json';
+        
+        if (!fs.existsSync(notesDir)) {
+          console.log('No notes directory found');
+          process.exit(0);
+        }
+        
+        const files = fs.readdirSync(notesDir)
+          .filter(f => f.endsWith('.html'))
+          .sort((a, b) => {
+            // Sort by git commit date descending
+            try {
+              const dateA = execSync(`git log -1 --format=%ci notes/${a}`, { encoding: 'utf8' }).trim();
+              const dateB = execSync(`git log -1 --format=%ci notes/${b}`, { encoding: 'utf8' }).trim();
+              return new Date(dateB) - new Date(dateA);
+            } catch {
+              return 0;
+            }
+          });
+        
+        const notes = files.map(file => {
+          const content = fs.readFileSync(path.join(notesDir, file), 'utf8');
+          const slug = file.replace('.html', '');
+          
+          // Parse metadata from HTML comment
+          const metaMatch = content.match(/<!--\s*([\s\S]*?)\s*-->/);
+          const metadata = {};
+          
+          if (metaMatch) {
+            const metaText = metaMatch[1];
+            metaText.split('\n').forEach(line => {
+              const match = line.match(/^\s*(\w+):\s*(.+)$/);
+              if (match) {
+                const [, key, value] = match;
+                metadata[key] = value.trim();
+              }
+            });
+          }
+          
+          // Get git commit date
+          let gitDate;
+          try {
+            gitDate = execSync(`git log -1 --format=%ci notes/${file}`, { encoding: 'utf8' }).trim();
+            gitDate = gitDate.split(' ')[0]; // YYYY-MM-DD
+          } catch {
+            gitDate = new Date().toISOString().split('T')[0];
+          }
+          
+          return {
+            slug,
+            date: metadata.date || gitDate,
+            title: metadata.title || slug,
+            title_ru: metadata.title_ru || metadata.title || slug,
+            description: metadata.description || '',
+            description_ru: metadata.description_ru || '',
+            tags: metadata.tags ? metadata.tags.split(',').map(t => t.trim()) : [],
+            status: metadata.status || 'published',
+            draft: metadata.draft === 'true',
+            url: `/notes/${file}`
+          };
+        }).filter(n => !n.draft && n.status === 'published');
+        
+        const output = {
+          updated: new Date().toISOString(),
+          count: notes.length,
+          notes
+        };
+        
+        fs.writeFileSync(outputFile, JSON.stringify(output, null, 2));
+        console.log(`Generated notes.json with ${notes.length} notes`);
+        EOF
+        
+    - name: Commit and push
+      run: |
+        git config user.name "GitHub Actions"
+        git config user.email "actions@github.com"
+        git add notes.json
+        if git diff --staged --quiet; then
+          echo "No changes to commit"
+        else
+          git commit -m "chore: auto-generate notes.json [skip ci]"
+          git push
+        fi
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

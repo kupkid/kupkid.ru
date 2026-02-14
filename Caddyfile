@@ -2,4 +2,20 @@
     root * /usr/share/caddy
     file_server
     encode gzip
+    
+    # Cache static assets for 1 hour
+    header /assets/* {
+        Cache-Control "public, max-age=3600"
+    }
+    
+    # Cache notes.json for 5 minutes (server-side)
+    header /notes.json {
+        Cache-Control "public, max-age=300"
+    }
+    
+    # Security headers
+    header {
+        X-Frame-Options "SAMEORIGIN"
+        X-Content-Type-Options "nosniff"
+    }
 }
