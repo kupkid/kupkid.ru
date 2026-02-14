@@ -162,38 +162,31 @@
     <h1 data-i18n="title" style="display: none;">обо мне</h1>
 
     <p data-i18n="p1">
-        software engineer.
+        hi. i'm learning programming.
     </p>
     <p data-i18n="p1" style="display: none;">
-        software engineer.
+        привет. я учусь программировать.
     </p>
 
     <p data-i18n="p2">
-        currently studying: rust, systems programming, low-level optimization.
+        started with python and telegram bots. now trying to understand rust and how computers actually work.
     </p>
     <p data-i18n="p2" style="display: none;">
-        сейчас изучаю: rust, системное программирование, низкоуровневую оптимизацию.
+        начал с python и telegram ботов. сейчас пытаюсь понять rust и как компьютеры работают на самом деле.
     </p>
 
     <p data-i18n="p3">
-        interests: automation, reverse engineering, minimal systems.
+        also learning linux, docker, and how to put stuff on servers.
     </p>
     <p data-i18n="p3" style="display: none;">
-        интересы: автоматизация, реверс-инжиниринг, минималистичные системы.
+        ещё учу linux, docker и как выкладывать штуки на сервера.
     </p>
 
     <p data-i18n="p4">
-        location: northern region, utc+5.
+        living in the north where it's dark half of the year.
     </p>
     <p data-i18n="p4" style="display: none;">
-        локация: северный регион, utc+5.
-    </p>
-
-    <p data-i18n="p5">
-        available for: backend development, devops, technical consulting.
-    </p>
-    <p data-i18n="p5" style="display: none;">
-        доступен для: backend разработки, devops, технического консалтинга.
+        живу на севере где полгода темно.
     </p>
 
     <hr class="separator">
@@ -210,19 +203,17 @@
         const translations = {
             en: {
                 'title': 'about',
-                'p1': 'software engineer.',
-                'p2': 'currently studying: rust, systems programming, low-level optimization.',
-                'p3': 'interests: automation, reverse engineering, minimal systems.',
-                'p4': 'location: northern region, utc+5.',
-                'p5': 'available for: backend development, devops, technical consulting.'
+                'p1': 'hi. i\'m learning programming.',
+                'p2': 'started with python and telegram bots. now trying to understand rust and how computers actually work.',
+                'p3': 'also learning linux, docker, and how to put stuff on servers.',
+                'p4': 'living in the north where it\'s dark half of the year.'
             },
             ru: {
                 'title': 'обо мне',
-                'p1': 'software engineer.',
-                'p2': 'сейчас изучаю: rust, системное программирование, низкоуровневую оптимизацию.',
-                'p3': 'интересы: автоматизация, реверс-инжиниринг, минималистичные системы.',
-                'p4': 'локация: северный регион, utc+5.',
-                'p5': 'доступен для: backend разработки, devops, технического консалтинга.'
+                'p1': 'привет. я учусь программировать.',
+                'p2': 'начал с python и telegram ботов. сейчас пытаюсь понять rust и как компьютеры работают на самом деле.',
+                'p3': 'ещё учу linux, docker и как выкладывать штуки на сервера.',
+                'p4': 'живу на севере где полгода темно.'
             }
         };
 
@@ -270,7 +261,6 @@
             localStorage.setItem('theme', newTheme);
         }
 
-        // Initialize
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme) {
             document.documentElement.setAttribute('data-theme', savedTheme);

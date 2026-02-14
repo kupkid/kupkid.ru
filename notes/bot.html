@@ -151,16 +151,6 @@
     </style>
 </head>
 <body>
-    <!--
-    date: 2025-02-10
-    title: download bot
-    title_ru: бот для скачивания
-    description: telegram bot for downloading videos from social networks
-    description_ru: telegram бот для скачивания видео из соцсетей
-    tags: project, telegram, python, bot
-    status: published
-    draft: false
-    -->
     <div class="controls">
         <button class="lang-toggle" onclick="toggleLang()" id="lang-btn">[ru]</button>
         <button class="theme-toggle" onclick="toggleTheme()">[theme]</button>
@@ -180,51 +170,47 @@
     <div class="meta">2025-02-10</div>
 
     <p data-i18n="p1">
-        built a bot for downloading videos from social networks. simple, fast, no watermarks.
+        made a telegram bot that downloads videos from social networks.
     </p>
     <p data-i18n="p1" style="display: none;">
-        написал бота для скачивания видео с соцсетей. простой, быстрый, без водяных знаков.
+        сделал telegram бота который скачивает видео из соцсетей.
     </p>
 
-    <h2 data-i18n="h1">features</h2>
-    <h2 data-i18n="h1" style="display: none;">фичи</h2>
+    <h2 data-i18n="h1">what it does</h2>
+    <h2 data-i18n="h1" style="display: none;">что делает</h2>
 
     <p data-i18n="p2">
-        - supports: tiktok, instagram, twitter/x, youtube<br>
-        - no registration required<br>
-        - instant file delivery<br>
-        - runs 24/7
+        send link from tiktok, instagram, twitter or youtube. get video back without watermarks.
     </p>
     <p data-i18n="p2" style="display: none;">
-        - поддержка: tiktok, instagram, twitter/x, youtube<br>
-        - без регистрации<br>
-        - мгновенная отправка файлов<br>
-        - работает 24/7
+        присылаешь ссылку из tiktok, instagram, twitter или youtube. получаешь видео без водяных знаков.
     </p>
 
-    <h2 data-i18n="h2">stack</h2>
-    <h2 data-i18n="h2" style="display: none;">стек</h2>
-
-    <pre><code>python 3.11
-aiogram 3.x
-yt-dlp
-redis</code></pre>
+    <h2 data-i18n="h2">how i made it</h2>
+    <h2 data-i18n="h2" style="display: none;">как сделал</h2>
 
     <p data-i18n="p3">
-        main issue — ip blocking from platforms. solved via proxy rotation and graceful retry with exponential backoff.
+        used python and aiogram library. for downloading used yt-dlp.
     </p>
     <p data-i18n="p3" style="display: none;">
-        главная проблема — блокировка ip со стороны платформ. решил через ротацию прокси и graceful retry с экспоненциальной задержкой.
+        использовал python и библиотеку aiogram. для скачивания использовал yt-dlp.
     </p>
-
-    <h2 data-i18n="h3">result</h2>
-    <h2 data-i18n="h3" style="display: none;">результат</h2>
 
     <p data-i18n="p4">
-        ~500 downloads per day. not open source yet — using myself and sharing with friends. might publish on github someday.
+        hardest part: websites block ip addresses. had to use proxies and retry logic.
     </p>
     <p data-i18n="p4" style="display: none;">
-        ~500 загрузок в день. пока не открытый исходник — использую сам и даю друзьям. возможно, когда-нибудь выложу на github.
+        сложнее всего: сайты блокируют ip адреса. пришлось использовать прокси и логику повторных попыток.
+    </p>
+
+    <h2 data-i18n="h3">now</h2>
+    <h2 data-i18n="h3" style="display: none;">сейчас</h2>
+
+    <p data-i18n="p5">
+        about 500 downloads per day. not open source yet. using myself and sharing with friends.
+    </p>
+    <p data-i18n="p5" style="display: none;">
+        примерно 500 скачиваний в день. пока не открыл код. использую сам и даю друзьям.
     </p>
 
     <hr class="separator">
@@ -236,24 +222,26 @@ redis</code></pre>
             en: {
                 'back': '← back',
                 'title': 'download bot',
-                'h1': 'features',
-                'h2': 'stack',
-                'h3': 'result',
-                'p1': 'built a bot for downloading videos from social networks. simple, fast, no watermarks.',
-                'p2': '- supports: tiktok, instagram, twitter/x, youtube<br>\n        - no registration required<br>\n        - instant file delivery<br>\n        - runs 24/7',
-                'p3': 'main issue — ip blocking from platforms. solved via proxy rotation and graceful retry with exponential backoff.',
-                'p4': '~500 downloads per day. not open source yet — using myself and sharing with friends. might publish on github someday.'
+                'h1': 'what it does',
+                'h2': 'how i made it',
+                'h3': 'now',
+                'p1': 'made a telegram bot that downloads videos from social networks.',
+                'p2': 'send link from tiktok, instagram, twitter or youtube. get video back without watermarks.',
+                'p3': 'used python and aiogram library. for downloading used yt-dlp.',
+                'p4': 'hardest part: websites block ip addresses. had to use proxies and retry logic.',
+                'p5': 'about 500 downloads per day. not open source yet. using myself and sharing with friends.'
             },
             ru: {
                 'back': '← назад',
                 'title': 'бот для скачивания',
-                'h1': 'фичи',
-                'h2': 'стек',
-                'h3': 'результат',
-                'p1': 'написал бота для скачивания видео с соцсетей. простой, быстрый, без водяных знаков.',
-                'p2': '- поддержка: tiktok, instagram, twitter/x, youtube<br>\n        - без регистрации<br>\n        - мгновенная отправка файлов<br>\n        - работает 24/7',
-                'p3': 'главная проблема — блокировка ip со стороны платформ. решил через ротацию прокси и graceful retry с экспоненциальной задержкой.',
-                'p4': '~500 загрузок в день. пока не открытый исходник — использую сам и даю друзьям. возможно, когда-нибудь выложу на github.'
+                'h1': 'что делает',
+                'h2': 'как сделал',
+                'h3': 'сейчас',
+                'p1': 'сделал telegram бота который скачивает видео из соцсетей.',
+                'p2': 'присылаешь ссылку из tiktok, instagram, twitter или youtube. получаешь видео без водяных знаков.',
+                'p3': 'использовал python и библиотеку aiogram. для скачивания использовал yt-dlp.',
+                'p4': 'сложнее всего: сайты блокируют ip адреса. пришлось использовать прокси и логику повторных попыток.',
+                'p5': 'примерно 500 скачиваний в день. пока не открыл код. использую сам и даю друзьям.'
             }
         };
 
@@ -283,7 +271,7 @@ redis</code></pre>
             elements.forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (translations[lang][key]) {
-                    el.innerHTML = translations[lang][key];
+                    el.textContent = translations[lang][key];
                 }
             });
         }
@@ -301,7 +289,6 @@ redis</code></pre>
             localStorage.setItem('theme', newTheme);
         }
 
-        // Initialize
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme) {
             document.documentElement.setAttribute('data-theme', savedTheme);

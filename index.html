@@ -154,12 +154,36 @@
         .git-tree {
             font-size: 0.875rem;
             line-height: 1.8;
-            white-space: pre;
-            overflow-x: auto;
+        }
+
+        .git-commit {
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .git-commit::before {
+            content: "*";
+            color: var(--muted);
+        }
+
+        .git-date {
+            color: var(--fg);
+            white-space: nowrap;
         }
 
         .git-hash {
             color: var(--muted);
+            white-space: nowrap;
+        }
+
+        .git-msg {
+            color: var(--fg);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 400px;
         }
 
         .separator {
@@ -216,6 +240,10 @@
             h1 {
                 font-size: 1.5rem;
             }
+
+            .git-msg {
+                max-width: 200px;
+            }
         }
     </style>
 </head>
@@ -231,16 +259,16 @@
     </nav>
 
     <h1>kupkid</h1>
-    <p class="tagline" data-i18n="tagline">full stack engineer / north</p>
-    <p class="tagline" data-i18n="tagline" style="display: none;">full stack engineer / north</p>
+    <p class="tagline" data-i18n="tagline">learning to code / north</p>
+    <p class="tagline" data-i18n="tagline" style="display: none;">учусь кодить / север</p>
 
     <h2 data-i18n="now-title">now</h2>
     <h2 data-i18n="now-title" style="display: none;">сейчас</h2>
     <ul>
-        <li data-i18n="now-1">building telegram bots</li>
-        <li data-i18n="now-1" style="display: none;">пишу telegram ботов</li>
-        <li data-i18n="now-2">learning rust</li>
-        <li data-i18n="now-2" style="display: none;">учу rust</li>
+        <li data-i18n="now-1">making telegram bots</li>
+        <li data-i18n="now-1" style="display: none;">делаю telegram ботов</li>
+        <li data-i18n="now-2">trying to learn rust</li>
+        <li data-i18n="now-2" style="display: none;">пытаюсь выучить rust</li>
         <li data-i18n="now-3">surviving winter</li>
         <li data-i18n="now-3" style="display: none;">переживаю зиму</li>
     </ul>
@@ -269,14 +297,14 @@
 
     <script>
         let currentLang = 'en';
-        const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+        const CACHE_TTL = 5 * 60 * 1000;
 
         const translations = {
             en: {
-                'tagline': 'full stack engineer / north',
+                'tagline': 'learning to code / north',
                 'now-title': 'now',
-                'now-1': 'building telegram bots',
-                'now-2': 'learning rust',
+                'now-1': 'making telegram bots',
+                'now-2': 'trying to learn rust',
                 'now-3': 'surviving winter',
                 'notes-title': 'notes',
                 'changelog-title': 'changelog',
@@ -284,10 +312,10 @@
                 'empty-notes': 'no notes yet'
             },
             ru: {
-                'tagline': 'full stack engineer / север',
+                'tagline': 'учусь кодить / север',
                 'now-title': 'сейчас',
-                'now-1': 'пишу telegram ботов',
-                'now-2': 'учу rust',
+                'now-1': 'делаю telegram ботов',
+                'now-2': 'пытаюсь выучить rust',
                 'now-3': 'переживаю зиму',
                 'notes-title': 'заметки',
                 'changelog-title': 'изменения',
@@ -339,7 +367,7 @@
         function toggleLang() {
             const newLang = currentLang === 'en' ? 'ru' : 'en';
             setLanguage(newLang);
-            renderNotes(); // Re-render notes with new language
+            renderNotes();
         }
 
         function toggleTheme() {
@@ -350,7 +378,6 @@
             localStorage.setItem('theme', newTheme);
         }
 
-        // Cache utilities
         function getCache(key) {
             const cached = localStorage.getItem(key);
             if (!cached) return null;
@@ -386,7 +413,6 @@
             return data;
         }
 
-        // Fetch and render notes
         async function fetchNotes() {
             try {
                 const data = await fetchWithCache('/notes.json', 'notes_data');
@@ -421,29 +447,29 @@
             });
         }
 
-        // Fetch changelog (separate endpoint for commits)
         async function fetchChangelog() {
             const container = document.getElementById('changelog-content');
             const loadingText = translations[currentLang]['loading'];
             
             try {
                 const commits = await fetchWithCache(
-                    'https://api.github.com/repos/kupkid/kupkid.ru/commits?per_page=5',
+                    '/api/commits',
                     'changelog_data'
                 );
                 
                 let html = '';
-                commits.forEach((commit, index) => {
-                    const date = new Date(commit.commit.committer.date).toISOString().split('T')[0];
-                    const hash = commit.sha.substring(0, 7);
-                    const message = commit.commit.message.split('\n')[0];
-                    const isLast = index === commits.length - 1;
+                commits.slice(0, 5).forEach((commit) => {
+                    const date = commit.date;
+                    const hash = commit.hash;
+                    const message = commit.message;
+                    // Truncate long messages
+                    const shortMsg = message.length > 50 ? message.substring(0, 47) + '...' : message;
                     
-                    if (isLast) {
-                        html += `* ${date}  <span class="git-hash">${hash}</span>  ${message}\n    init`;
-                    } else {
-                        html += `* ${date}  <span class="git-hash">${hash}</span>  ${message}\n│\n`;
-                    }
+                    html += `<div class="git-commit">
+                        <span class="git-date">${date}</span>
+                        <span class="git-hash">${hash}</span>
+                        <span class="git-msg" title="${message}">${shortMsg}</span>
+                    </div>`;
                 });
                 
                 container.innerHTML = html;
@@ -452,7 +478,6 @@
             }
         }
 
-        // Initialize
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme) {
             document.documentElement.setAttribute('data-theme', savedTheme);

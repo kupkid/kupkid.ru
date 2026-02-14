@@ -153,16 +153,6 @@
     </style>
 </head>
 <body>
-    <!--
-    date: 2025-01-28
-    title: golang thoughts
-    title_ru: мысли о golang
-    description: two months of writing go: pros, cons, and conclusions
-    description_ru: два месяца на go: плюсы, минусы, выводы
-    tags: golang, backend, review
-    status: published
-    draft: false
-    -->
     <div class="controls">
         <button class="lang-toggle" onclick="toggleLang()" id="lang-btn">[ru]</button>
         <button class="theme-toggle" onclick="toggleTheme()">[theme]</button>
@@ -182,55 +172,48 @@
     <div class="meta">2025-01-28</div>
 
     <p data-i18n="p1">
-        two months writing go. mixed feelings, but leaning towards it being a good tool for specific tasks.
+        two months trying to learn go. some things are good, some are weird.
     </p>
     <p data-i18n="p1" style="display: none;">
-        два месяца пишу на go. впечатления смешанные, но склоняюсь к тому, что это хороший инструмент для определенных задач.
+        два месяца пытаюсь учить go. кое-что хорошее, кое-что странное.
     </p>
 
-    <h2 data-i18n="h1">pros</h2>
-    <h2 data-i18n="h1" style="display: none;">плюсы</h2>
+    <h2 data-i18n="h1">good</h2>
+    <h2 data-i18n="h1" style="display: none;">хорошее</h2>
 
     <ul>
-        <li data-i18n="li1">single binary compilation — deploy is just scp</li>
-        <li data-i18n="li1" style="display: none;">компиляция в один бинарник — деплой это просто scp</li>
-        <li data-i18n="li2">goroutines — concurrency actually simple</li>
-        <li data-i18n="li2" style="display: none;">горутины — concurrency действительно простой</li>
-        <li data-i18n="li3">standard library — almost everything in the box</li>
-        <li data-i18n="li3" style="display: none;">стандартная библиотека — почти всё есть из коробки</li>
-        <li data-i18n="li4">go fmt — no holy wars about style</li>
-        <li data-i18n="li4" style="display: none;">go fmt — никаких holy wars про стиль</li>
+        <li data-i18n="li1">one file to deploy, no dependencies hell</li>
+        <li data-i18n="li1" style="display: none;">один файл для деплоя, нет ад зависимостей</li>
+        <li data-i18n="li2">easy to make things work at the same time</li>
+        <li data-i18n="li2" style="display: none;">легко делать чтобы вещи работали одновременно</li>
+        <li data-i18n="li3">standard library has almost everything</li>
+        <li data-i18n="li3" style="display: none;">стандартная библиотека почти всё содержит</li>
+        <li data-i18n="li4">one style for everyone, no arguing</li>
+        <li data-i18n="li4" style="display: none;">один стиль для всех, без споров</li>
     </ul>
 
-    <h2 data-i18n="h2">cons</h2>
-    <h2 data-i18n="h2" style="display: none;">минусы</h2>
+    <h2 data-i18n="h2">weird</h2>
+    <h2 data-i18n="h2" style="display: none;">странное</h2>
 
     <ul>
-        <li data-i18n="li5">error handling — if err != nil everywhere</li>
-        <li data-i18n="li5" style="display: none;">обработка ошибок — if err != nil повсюду</li>
-        <li data-i18n="li6">no generics (though 1.18+ has them now)</li>
-        <li data-i18n="li6" style="display: none;">отсутствие generics (хотя уже есть в 1.18+)</li>
-        <li data-i18n="li7">gopath and modules — still confusing</li>
-        <li data-i18n="li7" style="display: none;">путь gopath и модули — до сих пор путаюсь</li>
-        <li data-i18n="li8">nil — million nil checks</li>
-        <li data-i18n="li8" style="display: none;">nil — миллион проверок на nil</li>
+        <li data-i18n="li5">checking errors every line is annoying</li>
+        <li data-i18n="li5" style="display: none;">проверять ошибки каждую строчку раздражает</li>
+        <li data-i18n="li6">no normal way to make generic functions</li>
+        <li data-i18n="li6" style="display: none;">нет нормального способа делать универсальные функции</li>
+        <li data-i18n="li7">modules are confusing</li>
+        <li data-i18n="li7" style="display: none;">модули запутанные</li>
+        <li data-i18n="li8">too many nil checks</li>
+        <li data-i18n="li8" style="display: none;">слишком много проверок на nil</li>
     </ul>
 
-    <h2 data-i18n="h3">conclusion</h2>
-    <h2 data-i18n="h3" style="display: none;">вывод</h2>
+    <h2 data-i18n="h3">will i continue?</h2>
+    <h2 data-i18n="h3" style="display: none;">буду ли продолжать?</h2>
 
     <p data-i18n="p2">
-        go is c for the 21st century. not beautiful, not convenient, but damn efficient. for backends and microservices — perfect. for everything else — better pick something else.
+        yes. for backend it's good. for other things i'll use python.
     </p>
     <p data-i18n="p2" style="display: none;">
-        go — это c для 21 века. не красивый, не удобный, но чертовски эффективный. для бэкендов и микросервисов — идеален. для всего остального — лучше взять что-то другое.
-    </p>
-
-    <p data-i18n="p3">
-        staying on python for bots and scripts, but starting new projects in go. a compromise i can live with.
-    </p>
-    <p data-i18n="p3" style="display: none;">
-        пока остаюсь на python для ботов и скриптов, но новые проекты начинаю на go. компромисс, с которым можно жить.
+        да. для бэкенда хорош. для другого буду использовать python.
     </p>
 
     <hr class="separator">
@@ -242,38 +225,36 @@
             en: {
                 'back': '← back',
                 'title': 'golang thoughts',
-                'h1': 'pros',
-                'h2': 'cons',
-                'h3': 'conclusion',
-                'p1': 'two months writing go. mixed feelings, but leaning towards it being a good tool for specific tasks.',
-                'li1': 'single binary compilation — deploy is just scp',
-                'li2': 'goroutines — concurrency actually simple',
-                'li3': 'standard library — almost everything in the box',
-                'li4': 'go fmt — no holy wars about style',
-                'li5': 'error handling — if err != nil everywhere',
-                'li6': 'no generics (though 1.18+ has them now)',
-                'li7': 'gopath and modules — still confusing',
-                'li8': 'nil — million nil checks',
-                'p2': 'go is c for the 21st century. not beautiful, not convenient, but damn efficient. for backends and microservices — perfect. for everything else — better pick something else.',
-                'p3': 'staying on python for bots and scripts, but starting new projects in go. a compromise i can live with.'
+                'h1': 'good',
+                'h2': 'weird',
+                'h3': 'will i continue?',
+                'p1': 'two months trying to learn go. some things are good, some are weird.',
+                'li1': 'one file to deploy, no dependencies hell',
+                'li2': 'easy to make things work at the same time',
+                'li3': 'standard library has almost everything',
+                'li4': 'one style for everyone, no arguing',
+                'li5': 'checking errors every line is annoying',
+                'li6': 'no normal way to make generic functions',
+                'li7': 'modules are confusing',
+                'li8': 'too many nil checks',
+                'p2': 'yes. for backend it\'s good. for other things i\'ll use python.'
             },
             ru: {
                 'back': '← назад',
                 'title': 'мысли о golang',
-                'h1': 'плюсы',
-                'h2': 'минусы',
-                'h3': 'вывод',
-                'p1': 'два месяца пишу на go. впечатления смешанные, но склоняюсь к тому, что это хороший инструмент для определенных задач.',
-                'li1': 'компиляция в один бинарник — деплой это просто scp',
-                'li2': 'горутины — concurrency действительно простой',
-                'li3': 'стандартная библиотека — почти всё есть из коробки',
-                'li4': 'go fmt — никаких holy wars про стиль',
-                'li5': 'обработка ошибок — if err != nil повсюду',
-                'li6': 'отсутствие generics (хотя уже есть в 1.18+)',
-                'li7': 'путь gopath и модули — до сих пор путаюсь',
-                'li8': 'nil — миллион проверок на nil',
-                'p2': 'go — это c для 21 века. не красивый, не удобный, но чертовски эффективный. для бэкендов и микросервисов — идеален. для всего остального — лучше взять что-то другое.',
-                'p3': 'пока остаюсь на python для ботов и скриптов, но новые проекты начинаю на go. компромисс, с которым можно жить.'
+                'h1': 'хорошее',
+                'h2': 'странное',
+                'h3': 'буду ли продолжать?',
+                'p1': 'два месяца пытаюсь учить go. кое-что хорошее, кое-что странное.',
+                'li1': 'один файл для деплоя, нет ад зависимостей',
+                'li2': 'легко делать чтобы вещи работали одновременно',
+                'li3': 'стандартная библиотека почти всё содержит',
+                'li4': 'один стиль для всех, без споров',
+                'li5': 'проверять ошибки каждую строчку раздражает',
+                'li6': 'нет нормального способа делать универсальные функции',
+                'li7': 'модули запутанные',
+                'li8': 'слишком много проверок на nil',
+                'p2': 'да. для бэкенда хорош. для другого буду использовать python.'
             }
         };
 
@@ -321,7 +302,6 @@
             localStorage.setItem('theme', newTheme);
         }
 
-        // Initialize
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme) {
             document.documentElement.setAttribute('data-theme', savedTheme);
